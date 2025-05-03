@@ -12,6 +12,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+    - uses: fregante/setup-git-user@v1
 
     - name: Install the latest version of uv
       uses: astral-sh/setup-uv@v6
