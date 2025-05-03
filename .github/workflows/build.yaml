@@ -65,7 +65,7 @@ jobs:
         elif [ $EXIT_CODE -eq 3 ]; then
           echo "changes_detected=false" >> $GITHUB_ENV
           # Transform it to 0 to avoid failing the workflow
-          echo "exit_code=0" >> $GITHUB_ENV
+          exit 0
         else
           echo "Script failed with exit code $EXIT_CODE"
           exit $EXIT_CODE
