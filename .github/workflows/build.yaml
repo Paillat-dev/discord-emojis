@@ -22,14 +22,35 @@ jobs:
     - name: Create or Checkout Branch
       id: branch
       run: |
-        BRANCH_NAME="emojis-autoupdate-$(date +%s)"
-        EXISTING_BRANCH=$(git branch -r | grep "origin/emojis-autoupdate-")
+        # Create a new branch name with timestamp
+        NEW_BRANCH_NAME="emojis-autoupdate-$(date +%s)"
+        
+        # Check for existing branches
+        git fetch origin
+        EXISTING_BRANCH=$(git branch -r | grep "origin/emojis-autoupdate-" || true)
+        
         if [ -z "$EXISTING_BRANCH" ]; then
-          git checkout -b $BRANCH_NAME
+          # No existing branch, create a new one
+          echo "Creating new branch: $NEW_BRANCH_NAME"
+          git checkout -b $NEW_BRANCH_NAME
+          BRANCH_NAME=$NEW_BRANCH_NAME
         else
-          BRANCH_NAME=$(echo $EXISTING_BRANCH | sed 's|origin/||')
-          git checkout $BRANCH_NAME
+          # Found existing branch, extract name without "origin/"
+          BRANCH_NAME=$(echo $EXISTING_BRANCH | sed 's|origin/||' | tr -d '[:space:]')
+          echo "Found existing branch: $BRANCH_NAME"
+          
+          # Create a local tracking branch
+          git checkout -b $BRANCH_NAME --track origin/$BRANCH_NAME || git checkout -b $BRANCH_NAME
+          
+          # If that fails, fall back to new branch
+          if [ $? -ne 0 ]; then
+            echo "Failed to checkout existing branch, creating new: $NEW_BRANCH_NAME"
+            git checkout -b $NEW_BRANCH_NAME
+            BRANCH_NAME=$NEW_BRANCH_NAME
+          fi
         fi
+        
+        echo "Using branch: $BRANCH_NAME"
         echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
 
     - name: Run UV Python Script
