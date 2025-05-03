@@ -3,11 +3,11 @@
 
 import json
 import re
-from warnings import warn
-import json5
-from typing import Any
 from collections.abc import Mapping, Sequence
+from typing import Any
+from warnings import warn
 
+import json5
 
 type AnyDict = dict[Any, Any]  # pyright: ignore[reportExplicitAny]
 type AnyList = list[Any]  # pyright: ignore[reportExplicitAny]
@@ -17,34 +17,32 @@ PATTERN = re.compile(r"""(?<=\(')(\{"emojis".*?\})(?='\))""")
 
 
 class ExtractError(Exception):
-    pass
+    """Base class for all extract errors."""
 
 
 class NotFoundError(ExtractError):
-    pass
+    """No matches found in the build."""
 
 
 class MultipleFoundError(ExtractError):
-    pass
+    """Multiple matches found in the build."""
 
 
 _SUR = re.compile(r"[\uD800-\uDFFF]")
 
 
 def report_surrogates(node: AnyDict | AnyList | AnyTuple | str, path: str = "") -> None:
-    """
-    Recursively walk *node* (dict / list / tuple / str) and print the location
-    and code-point of every UTF-16 surrogate half it encounters.
+    r"""Recursively walk *node* (dict / list / tuple / str) and print the location and code-point of every UTF-16 surrogate half it encounters.
 
     >>> data = {"a": "OK", "b": ["\\uD83D", {"c": "x\\uDE00y"}]}
     >>> report_surrogates(data)
     b[0] : U+D83D
     b[1].c : U+DE00
-    """
+    """  # noqa: E501
     if isinstance(node, str):
         for m in _SUR.finditer(node):
             cp = ord(m.group())
-            warn(f"Surrogate found at {path or '<root>'} : U+{cp:04X}")
+            warn(f"Surrogate found at {path or '<root>'} : U+{cp:04X}", SyntaxWarning, 2)
         return
 
     if isinstance(node, Mapping):
@@ -59,12 +57,13 @@ def report_surrogates(node: AnyDict | AnyList | AnyTuple | str, path: str = "") 
 
 
 def extract_emojis_from_str(content: str) -> AnyDict:
+    """Extract emojis from a string containing the discord build."""
     print("Searching for emojis...")
     matches: list[str] = PATTERN.findall(content)
 
     if len(matches) == 0:
         raise NotFoundError("No matches found")
-    elif len(matches) > 1:
+    if len(matches) > 1:
         raise MultipleFoundError("Multiple matches found")
 
     match: str = matches[0]

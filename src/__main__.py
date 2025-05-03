@@ -1,20 +1,19 @@
 # Copyright (c) Paillat-dev
 # SPDX-License-Identifier: MIT
 
-import os
-import pathlib
 import hashlib
 import json
-
+import pathlib
 import sys
 from typing import Any
 
-from extract import extract_emojis_from_str
 from download_build import dowload
+from extract import extract_emojis_from_str
 
 
 def main() -> None:
-    build_path = pathlib.Path(os.getcwd()) / "build"
+    """Download the latest discord build and extract emojis."""
+    build_path = pathlib.Path.cwd() / "build"
     build_path.mkdir(exist_ok=True)
 
     out_path = build_path / "emojis.json"

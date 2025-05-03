@@ -7,7 +7,11 @@ URL = "https://raw.githubusercontent.com/Discord-Datamining/Discord-Datamining/r
 
 
 def dowload() -> str:
+    """Download the latest discord build from the datamining repository.
+
+    Returns the content of the file as a string.
+    """
     print("Downloading the latest discord build")
-    response = requests.get(URL)
+    response = requests.get(URL, timeout=10)
     response.raise_for_status()
     return response.text
