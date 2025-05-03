@@ -1,0 +1,65 @@
+name: Emojis Auto Update
+
+on:
+  schedule:
+    - cron: "0 0 * * 1,4"
+  workflow_dispatch:
+
+jobs:
+  emojis-autoupdate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v6
+
+    - name: Sync UV
+      run: uv sync
+
+    - name: Create or Checkout Branch
+      id: branch
+      run: |
+        BRANCH_NAME="emojis-autoupdate-$(date +%s)"
+        EXISTING_BRANCH=$(git branch -r | grep "origin/emojis-autoupdate-")
+        if [ -z "$EXISTING_BRANCH" ]; then
+          git checkout -b $BRANCH_NAME
+        else
+          BRANCH_NAME=$(echo $EXISTING_BRANCH | sed 's|origin/||')
+          git checkout $BRANCH_NAME
+        fi
+        echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
+
+    - name: Run UV Python Script
+      id: run_script
+      run: |
+        uv run src
+        EXIT_CODE=$?
+        echo "exit_code=$EXIT_CODE" >> $GITHUB_ENV
+        if [ $EXIT_CODE -eq 0 ]; then
+          echo "changes_detected=true" >> $GITHUB_ENV
+        elif [ $EXIT_CODE -eq 2 ]; then
+          echo "changes_detected=false" >> $GITHUB_ENV
+        else
+          echo "Script failed with exit code $EXIT_CODE"
+          exit $EXIT_CODE
+        fi
+
+    - name: Commit and Push Changes
+      if: env.changes_detected == 'true'
+      run: |
+        git add build/*
+        git commit -m "Emojis autoupdate"
+        git push --force origin ${{ env.branch_name }}
+
+    - name: Open Pull Request
+      if: env.changes_detected == 'true'
+      uses: peter-evans/create-pull-request@v5
+      with:
+        branch: ${{ env.branch_name }}
+        title: "Emojis autoupdate"
+        body: "This PR updates the emojis based on the latest datamining changes."
+        base: master
+        commit-message: "Emojis autoupdate"

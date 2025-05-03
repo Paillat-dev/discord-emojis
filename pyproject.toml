@@ -1,0 +1,19 @@
+[project]
+name = "discord-emojis"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "json5>=0.12.0",
+    "orjson>=3.10.18",
+    "requests>=2.32.3",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.8",
+]
+
+[tool.basedpyright]
+typeCheckingMode = "all"
+reportUnusedCallResult = false
+reportAny = false
