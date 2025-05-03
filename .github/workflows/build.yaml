@@ -78,10 +78,12 @@ jobs:
 
     - name: Open Pull Request
       if: env.changes_detected == 'true'
-      uses: peter-evans/create-pull-request@v5
-      with:
-        branch: ${{ env.branch_name }}
-        title: "Emojis autoupdate"
-        body: "This PR updates the emojis based on the latest datamining changes."
-        base: master
-        commit-message: "Emojis autoupdate"
+      # use the gh cli to create a pull request, first check if a pr already exists for the branch
+      run: |
+            EXISTING_PR=$(gh pr list --search "is:open label:emojis" --json headRefName,number,author -q '.[0]')
+            if [ -z "$EXISTING_PR" ]; then
+              echo "No existing PR found, creating a new one."
+              gh pr create --base main --head ${{ env.branch_name }} --title "Emojis Auto Update" --body "This PR was created automatically by the Emojis Auto Update workflow." --label emojis
+            else
+              echo "An existing PR was found: $EXISTING_PR"
+            fi
