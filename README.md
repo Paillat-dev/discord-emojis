@@ -4,7 +4,7 @@ A Python tool that automatically fetches and extracts the latest emoji data from
 
 ## Overview
 
-This project automatically downloads the latest Discord build from the [Discord-Datamining](https://github.com/Discord-Datamining/Discord-Datamining) repository, extracts emoji data, and saves it in a structured JSON format. It runs as a GitHub Actions workflow twice a week to keep the emoji data up-to-date without manual intervention.
+This project automatically downloads the latest Discord build from the [Discord-Datamining](https://github.com/Discord-Datamining/Discord-Datamining) repository, extracts emoji data, and saves it in a structured JSON format. It runs as a GitHub Actions workflow twice a week and opens a pull-request to keep the emoji data up-to-date, without manual intervention.
 
 ## How It Works
 
@@ -13,7 +13,7 @@ This project automatically downloads the latest Discord build from the [Discord-
 - Extracts emoji information
 - Saves data in a standardized JSON format
 - Tracks changes using hash comparison to avoid unnecessary updates
-- Detects and reports UTF-16 surrogate pairs
+- Detects and reports unhandled UTF-16 surrogate pairs
 
 ## Technical Details
 
@@ -21,26 +21,75 @@ The project uses:
 - Python 3.13+
 - Dependencies:
   - json5
-  - orjson
   - requests
 
 ## Output
 
 The emoji data is saved in `build/emojis.json` in the following format:
+
 ```json
 {
     "emojis": [
         {
-            "name": "emoji_name",
-            "id": "emoji_id",
-            ...
+            "names": [
+                "grinning",
+                "grinning_face"
+            ],
+            "surrogates": "😀",
+            "unicodeVersion": 6.1,
+            "spriteIndex": 0
         },
-        ...
-    ]
+        // More emoji entries...
+    ],
+    "emojisByCategory": {
+        "people": [
+            0,
+            509
+        ],
+        // More categories...
+    },
+    "nameToEmoji": {
+        "100": 1410,
+        "1234": 1488,
+        "grinning": 0,
+        // More name mappings...
+    },
+    "surrogateToEmoji": {
+        "😀": 0,
+        "😃": 1,
+        "😄": 2,
+        // More surrogate mappings...
+    },
+    "numDiversitySprites": 310,
+    "numNonDiversitySprites": 1614
 }
 ```
 
-The main emojis.json file in the root directory is the updated version that consumers can access via GitHub raw URLs or by cloning this repository.
+### Format Explanation
+
+- **emojis**: Array of emoji objects containing:
+  - **names**: Array of names/aliases for the emoji
+  - **surrogates**: Unicode representation of the emoji
+  - **unicodeVersion**: Version where the emoji was introduced
+  - **spriteIndex**: Index in Discord's sprite sheet
+
+- **emojisByCategory**: Object mapping category names to arrays of starting and ending indices in the emoji array
+
+- **nameToEmoji**: Mapping of emoji names to their index in the emoji array (used for quick lookups)
+
+- **surrogateToEmoji**: Mapping of emoji unicode characters to their index in the emoji array (used for quick lookups)
+
+- **numDiversitySprites**: Number of skin tone modifier sprites available (e.g., different skin tones for hand gestures)
+
+- **numNonDiversitySprites**: Number of standard emoji sprites that don't have skin tone modifiers
+
+## Easy Access
+
+The easiest way to access the emojis data is via the direct raw GitHub URL:
+
+```
+https://raw.githubusercontent.com/Paillat-dev/discord-emojis/refs/heads/master/build/emojis.json
+```
 
 ## Development
 
