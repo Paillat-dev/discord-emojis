@@ -85,7 +85,7 @@ jobs:
             EXISTING_PR=$(gh pr list --search "is:open label:emojis" --json headRefName,number,author -q '.[0]')
             if [ -z "$EXISTING_PR" ]; then
               echo "No existing PR found, creating a new one."
-              gh pr create --base main --head ${{ env.branch_name }} --title "Emojis Auto Update" --body "This PR was created automatically by the Emojis Auto Update workflow." --label emojis
+              gh pr create --base master --head ${{ env.branch_name }} --title "Emojis Auto Update" --body "This PR was created automatically by the Emojis Auto Update workflow." --label emojis
             else
               echo "An existing PR was found: $EXISTING_PR"
             fi
