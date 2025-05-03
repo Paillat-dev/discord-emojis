@@ -54,7 +54,7 @@ jobs:
         echo "Using branch: $BRANCH_NAME"
         echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
 
-    - name: Run UV Python Script
+    - name: Run Update Script
       id: run_script
       run: |
         uv run src
