@@ -62,8 +62,10 @@ jobs:
         echo "exit_code=$EXIT_CODE" >> $GITHUB_ENV
         if [ $EXIT_CODE -eq 0 ]; then
           echo "changes_detected=true" >> $GITHUB_ENV
-        elif [ $EXIT_CODE -eq 2 ]; then
+        elif [ $EXIT_CODE -eq 3 ]; then
           echo "changes_detected=false" >> $GITHUB_ENV
+          # Transform it to 0 to avoid failing the workflow
+          echo "exit_code=0" >> $GITHUB_ENV
         else
           echo "Script failed with exit code $EXIT_CODE"
           exit $EXIT_CODE

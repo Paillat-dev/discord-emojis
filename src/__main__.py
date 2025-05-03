@@ -32,7 +32,7 @@ def main() -> None:
 
     if current_hash == new_hash:
         print("No changes")
-        sys.exit(2)  # No changes
+        sys.exit(3)  # No changes
 
     with out_path.open("wb") as out_file:
         out_file.write(new_dump)
