@@ -1,3 +1,6 @@
+# Copyright (c) Paillat-dev
+# SPDX-License-Identifier: MIT
+
 import json
 import re
 from warnings import warn

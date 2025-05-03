@@ -1,3 +1,6 @@
+# Copyright (c) Paillat-dev
+# SPDX-License-Identifier: MIT
+
 import requests
 
 URL = "https://raw.githubusercontent.com/Discord-Datamining/Discord-Datamining/refs/heads/master/current.js"
