@@ -27,7 +27,7 @@ The project uses:
 
 The emoji data is saved in `build/emojis.json` in the following format:
 
-```json
+```json5
 {
     "emojis": [
         {
