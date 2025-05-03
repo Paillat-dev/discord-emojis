@@ -60,8 +60,10 @@ jobs:
     - name: Run Update Script
       id: run_script
       run: |
+        set +e
         uv run src
         CODE=$?
+        set -e
         if [ $CODE -eq 0 ]; then
         echo "Changes detected"
           echo "changes_detected=true" >> $GITHUB_ENV
