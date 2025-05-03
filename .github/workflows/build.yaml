@@ -87,3 +87,5 @@ jobs:
             else
               echo "An existing PR was found: $EXISTING_PR"
             fi
+      env:
+        GH_TOKEN: ${{ github.token }}
