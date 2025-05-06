@@ -8,11 +8,9 @@ This project automatically downloads the latest Discord build from the [Discord-
 
 ## Disclaimer
 
-We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Discord Inc., or any of its subsidiaries or its affiliates. Some code found within this repository may be owned by Discord Inc.
+We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Discord Inc., or any of its subsidiaries or its affiliates. The emoji data in the /build directory is extracted from Discord builds and may be owned by Discord Inc.
 
 The contents of this repository exist purely for educational purposes and its contributors do not condone sharing the content found here on any social media platform as your own.
-
-The contents of this repository are subject to change at the discretion of Discord Inc. or be completely removed. Any new products or features discovered are subject to change and not guaranteed to release.
 
 This repository is provided "AS IS" without warranty of any kind, either express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement.
 
