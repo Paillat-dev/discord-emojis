@@ -6,6 +6,16 @@ A Python tool that automatically fetches and extracts the latest emoji data from
 
 This project automatically downloads the latest Discord build from the [Discord-Datamining](https://github.com/Discord-Datamining/Discord-Datamining) repository, extracts emoji data, and saves it in a structured JSON format. It runs as a GitHub Actions workflow twice a week and opens a pull-request to keep the emoji data up-to-date, without manual intervention.
 
+## Disclaimer
+
+We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Discord Inc., or any of its subsidiaries or its affiliates. Some code found within this repository may be owned by Discord Inc.
+
+The contents of this repository exist purely for educational purposes and its contributors do not condone sharing the content found here on any social media platform as your own.
+
+The contents of this repository are subject to change at the discretion of Discord Inc. or be completely removed. Any new products or features discovered are subject to change and not guaranteed to release.
+
+This repository is provided "AS IS" without warranty of any kind, either express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement.
+
 ## How It Works
 
 - GitHub Actions workflow runs automatically twice per week
