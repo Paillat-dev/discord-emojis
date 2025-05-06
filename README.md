@@ -1,6 +1,6 @@
 # Discord Emojis
 
-A Python tool that automatically fetches and extracts the latest emoji data from Discord.
+A Python tool that automatically fetches the latest Discord build from the Discord-Datamining repository and extracts emoji data from it.
 
 ## Overview
 
@@ -8,7 +8,7 @@ This project automatically downloads the latest Discord build from the [Discord-
 
 ## Disclaimer
 
-We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Discord Inc., or any of its subsidiaries or its affiliates. The emoji data in the /build directory is extracted from Discord builds and may be owned by Discord Inc.
+We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Discord Inc., or any of its subsidiaries or its affiliates. The emoji data in the /build directory is extracted from Discord builds obtained from the Discord-Datamining repository and may be owned by Discord Inc.
 
 The contents of this repository exist purely for educational purposes and its contributors do not condone sharing the content found here on any social media platform as your own.
 
@@ -17,7 +17,7 @@ This repository is provided "AS IS" without warranty of any kind, either express
 ## How It Works
 
 - GitHub Actions workflow runs automatically twice per week
-- Downloads the latest Discord build
+- Downloads the latest Discord build from the Discord-Datamining repository
 - Extracts emoji information
 - Saves data in a standardized JSON format
 - Tracks changes using hash comparison to avoid unnecessary updates
