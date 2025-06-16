@@ -15504,23 +15504,25 @@
                 "tm",
                 "trade_mark"
             ],
-            "surrogates": "™️",
+            "surrogates": "™",
             "unicodeVersion": 1.1,
             "spriteIndex": 1225
         },
         {
             "names": [
-                "copyright"
+                "copyright",
+                "c"
             ],
-            "surrogates": "©️",
+            "surrogates": "©",
             "unicodeVersion": 1.1,
             "spriteIndex": 1226
         },
         {
             "names": [
-                "registered"
+                "registered",
+                "r"
             ],
-            "surrogates": "®️",
+            "surrogates": "®",
             "unicodeVersion": 1.1,
             "spriteIndex": 1227
         },
@@ -43251,7 +43253,9 @@
         "tm": 1535,
         "trade_mark": 1535,
         "copyright": 1536,
+        "c": 1536,
         "registered": 1537,
+        "r": 1537,
         "wavy_dash": 1538,
         "curly_loop": 1539,
         "loop": 1540,
@@ -50938,11 +50942,8 @@
         "♾": 1532,
         "💲": 1533,
         "💱": 1534,
-        "™️": 1535,
         "™": 1535,
-        "©️": 1536,
         "©": 1536,
-        "®️": 1537,
         "®": 1537,
         "〰️": 1538,
         "〰": 1538,
