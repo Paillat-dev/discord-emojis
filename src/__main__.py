@@ -18,8 +18,8 @@ def main() -> None:
     build_download: str = dowload()
     for parser_cls in PARSERS:
         parser = parser_cls(build_download)
-        out_path = build_path / parser.NAME
-        hash_path = build_path / f".{parser.NAME}.hash"
+        out_path = build_path / parser.FILE_NAME
+        hash_path = build_path / f".{parser.FILE_NAME}.hash"
 
         if not out_path.exists():
             out_path.touch()
@@ -32,10 +32,10 @@ def main() -> None:
 
         new_dump: bytes
         new_hash: str
-        new_dump, new_hash = parser()  # pyright: ignore[reportExplicitAny]
+        new_dump, new_hash = parser()
 
         if current_hash == new_hash:
-            print(f"No changes for {parser.NAME}")
+            print(f"No changes for {parser.FILE_NAME}")
             continue
 
         with out_path.open("wb") as out_file:

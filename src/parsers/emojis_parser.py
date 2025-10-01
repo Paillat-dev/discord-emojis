@@ -4,15 +4,11 @@
 import hashlib
 import json
 import re
-from typing import Any, NotRequired, TypedDict
+from typing import Literal, NotRequired, TypedDict, final, override
 
 import json5
 
 from .base import BuildParser, ParseError
-
-type AnyDict = dict[Any, Any]  # pyright: ignore[reportExplicitAny]
-type AnyList = list[Any]  # pyright: ignore[reportExplicitAny]
-type AnyTuple = tuple[Any, ...]  # pyright: ignore[reportExplicitAny]
 
 PATTERN = re.compile(r"""(?<=\(')(\{"emojis".*?\})(?='\))""")
 
@@ -53,11 +49,13 @@ class EmojisData(TypedDict):
 _SUR = re.compile(r"[\uD800-\uDFFF]")
 
 
+@final
 class EmojisParser(BuildParser):
     """Parser for extracting emojis from the discord build."""
 
-    NAME = "emojis.json"
+    FILE_NAME: Literal["emojis.json"] = "emojis.json"  # pyright: ignore[reportIncompatibleVariableOverride]
 
+    @override
     def __call__(self) -> tuple[bytes, str]:
         """Extract emojis from the discord build and return them as a JSON dump and a hash.
 

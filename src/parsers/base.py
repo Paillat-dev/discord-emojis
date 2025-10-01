@@ -11,7 +11,7 @@ class ParseError(Exception, ABC):
 class BuildParser(ABC):
     """Base class for all build parsers."""
 
-    NAME: str
+    FILE_NAME: str
 
     def __init__(self, discord_build: str) -> None:
         """Initialize the parser with the discord build.
@@ -20,7 +20,7 @@ class BuildParser(ABC):
             discord_build (str): The content of the discord build to parse.
 
         """
-        self.discord_build = discord_build
+        self.discord_build: str = discord_build
 
     @abstractmethod
     def __call__(self) -> tuple[bytes, str]:
