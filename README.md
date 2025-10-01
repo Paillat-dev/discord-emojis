@@ -33,6 +33,16 @@ The project uses:
   - json5
   - requests
 
+### Architecture
+
+The codebase follows a modular parser-based architecture:
+- **Base Parser**: Abstract base class (`BuildParser`) defining the interface for all parsers
+- **Parser System**: Extensible design allowing multiple parsers to extract different data types from Discord builds
+- **Current Parsers**:
+  - `EmojisParser`: Extracts emoji data from Discord builds
+
+This architecture makes it easy to add new parsers for extracting other types of data (e.g., stickers, assets) in the future.
+
 ## Output
 
 The emoji data is saved in `build/emojis.json` in the following format:
