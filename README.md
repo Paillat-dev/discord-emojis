@@ -1,3 +1,7 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright: 2024-2026 Paillat-dev
+-->
 # Discord Emojis
 
 A Python tool that automatically fetches and extracts the latest emoji data from Discord.

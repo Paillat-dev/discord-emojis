@@ -1,5 +1,5 @@
-# Copyright (c) Paillat-dev
 # SPDX-License-Identifier: MIT
+# Copyright: 2024-2026 Paillat-dev
 
 import requests
 
