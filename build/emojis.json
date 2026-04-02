@@ -13131,7 +13131,8 @@
         },
         {
             "names": [
-                "piñata"
+                "piñata",
+                "pinata"
             ],
             "surrogates": "🪅",
             "unicodeVersion": 13,
@@ -42900,6 +42901,7 @@
         "ribbon": 1245,
         "magic_wand": 1246,
         "piñata": 1247,
+        "pinata": 1247,
         "confetti_ball": 1248,
         "tada": 1249,
         "party_popper": 1249,
