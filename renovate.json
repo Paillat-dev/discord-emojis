@@ -37,5 +37,6 @@
         "pypi"
       ]
     }
-  ]
+  ],
+  "pinDigests": true
 }
