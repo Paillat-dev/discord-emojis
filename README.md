@@ -120,11 +120,11 @@ https://raw.githubusercontent.com/Paillat-dev/discord-emojis/refs/heads/master/b
 For local development or testing:
 
 ```bash
-# Install dependencies using uv
+# Install dependencies using pdm
 pdm install
 
 # Run the update script manually
-uv run src
+pdm run sync-emojis
 ```
 
 Note: Local execution should only be done during development. In production, the script runs automatically through GitHub Actions.
