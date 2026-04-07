@@ -82,7 +82,7 @@ jobs:
     - name: Commit and Push Changes
       if: env.changes_detected == 'true'
       run: |
-        git add build/*
+        git add build/
         git commit -m "Emojis autoupdate"
         git push --force origin ${{ env.branch_name }}
 
