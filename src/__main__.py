@@ -4,8 +4,8 @@
 import pathlib
 import sys
 
-from download_build import dowload
-from parsers import PARSERS
+from .download_build import dowload
+from .parsers import PARSERS
 
 
 def main() -> None:
