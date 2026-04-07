@@ -121,7 +121,7 @@ For local development or testing:
 
 ```bash
 # Install dependencies using uv
-uv sync --dev
+pdm install
 
 # Run the update script manually
 uv run src

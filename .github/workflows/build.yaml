@@ -17,11 +17,11 @@ jobs:
       uses: actions/checkout@v6
     - uses: fregante/setup-git-user@v2
 
-    - name: Install the latest version of uv
-      uses: astral-sh/setup-uv@v7
+    - name: "Setup PDM"
+      uses: pdm-project/setup-pdm@v4
 
-    - name: Sync UV
-      run: uv sync
+    - name: "Install Dependencies"
+      run: "pdm install"
 
     - name: Create or Checkout Branch
       id: branch
@@ -61,7 +61,7 @@ jobs:
       id: run_script
       run: |
         set +e
-        uv run src
+        pdm run sync-emojis
         CODE=$?
         set -e
         if [ $CODE -eq 0 ]; then
@@ -88,7 +88,6 @@ jobs:
 
     - name: Open Pull Request
       if: env.changes_detected == 'true'
-      # use the gh cli to create a pull request, first check if a pr already exists for the branch
       run: |
             EXISTING_PR=$(gh pr list --search "is:open label:emojis" --json headRefName,number,author -q '.[0]')
             if [ -z "$EXISTING_PR" ]; then

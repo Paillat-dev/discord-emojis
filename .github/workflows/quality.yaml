@@ -26,31 +26,25 @@ jobs:
         include:
           - check: format
             name: "Format Check"
-            command: "uv run ruff format --check ."
+            command: "pdm run format:check"
           - check: lint
             name: "Lint Check"
-            command: "uv run ruff check ."
+            command: "pdm run lint"
           - check: basedpyright
             name: "Type Check"
-            command: "uv run basedpyright ."
+            command: "pdm run typecheck"
 
     name: ${{ matrix.name }}
 
     steps:
-      - uses: actions/checkout@v6
+      - name: "Checkout Repository"
+        uses: actions/checkout@v6
 
-      - name: "Install uv"
-        uses: astral-sh/setup-uv@v7
-        with:
-          enable-cache: true
+      - name: "Setup PDM"
+        uses: pdm-project/setup-pdm@v4
 
-      - name: "Set up Python"
-        uses: actions/setup-python@v6
-        with:
-          python-version-file: "pyproject.toml"
-
-      - name: Install dependencies
-        run: uv sync
+      - name: "Install Dependencies"
+        run: "pdm install"
 
       - name: ${{ matrix.name }}
         run: ${{ matrix.command }}

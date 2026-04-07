@@ -3,12 +3,14 @@
 
 [project]
 name = "discord-emojis"
-version = "0.1.0"
 requires-python = "==3.14.*"
 dependencies = [
     "json5>=0.12.0",
     "requests>=2.32.3",
 ]
+
+[tool.pdm]
+distribution = false
 
 [dependency-groups]
 dev = [
@@ -48,3 +50,11 @@ extend-ignore = [
     "D400",
     "D104"
 ]
+
+[tool.pdm.scripts]
+format = ["ruff", "format", "."]
+"format:check" = ["ruff", "format", ".", "--check"]
+lint = ["ruff", "check", "."]
+"lint:fix" = ["ruff", "check", ".", "--fix"]
+"sync-emojis" = ["python", "-m", "src"]
+"typecheck" = ["basedpyright", "."]
