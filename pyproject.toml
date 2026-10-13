@@ -3,7 +3,7 @@
 
 [project]
 name = "discord-emojis"
-requires-python = "==3.14.*"
+requires-python = "==3.15.*"
 dependencies = [
     "json5>=0.12.0",
     "requests>=2.32.3",
